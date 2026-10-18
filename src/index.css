@@ -1,0 +1,149 @@
+@import 'tailwindcss';
+
+/* Class based dark mode (toggle on <html>) */
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  /* ---- Brand : rouge / orangé profond (inspiration Attijariwafa) ---- */
+  --color-brand-50: #fef3ee;
+  --color-brand-100: #fde3d7;
+  --color-brand-200: #fbc4ad;
+  --color-brand-300: #f79c7c;
+  --color-brand-400: #f07150;
+  --color-brand-500: #e6522a;
+  --color-brand-600: #d13c18; /* primaire */
+  --color-brand-700: #af2f13;
+  --color-brand-800: #8b2714;
+  --color-brand-900: #712314;
+  --color-brand-950: #3d0e08;
+
+  /* ---- Gris anthracite ---- */
+  --color-anthracite-50: #f6f7f9;
+  --color-anthracite-100: #eceef2;
+  --color-anthracite-200: #dcdfe6;
+  --color-anthracite-300: #c2c7d2;
+  --color-anthracite-400: #9aa1b2;
+  --color-anthracite-500: #767e91;
+  --color-anthracite-600: #5b6275;
+  --color-anthracite-700: #474d5d;
+  --color-anthracite-800: #363b48;
+  --color-anthracite-900: #23262f;
+  --color-anthracite-950: #14161c;
+
+  /* ---- Sémantique hausse / baisse ---- */
+  --color-gain-500: #0f9d58;
+  --color-gain-600: #0b8046;
+  --color-loss-500: #d92d20;
+  --color-loss-600: #b42318;
+
+  /* ---- Surfaces ---- */
+  --color-surface: #f6f7f9;
+  --color-card: #ffffff;
+  --color-border: #e6e8ec;
+  --color-ink: #1b1f2a;
+  --color-muted: #6b7280;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, Arial,
+    sans-serif;
+  --font-display: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+  --radius-card: 1rem;
+
+  --shadow-card: 0 1px 2px rgba(20, 22, 28, 0.04), 0 4px 16px rgba(20, 22, 28, 0.06);
+  --shadow-pop: 0 8px 30px rgba(20, 22, 28, 0.14);
+
+  --animate-skeleton: skeleton 1.4s ease-in-out infinite;
+
+  @keyframes skeleton {
+    0%,
+    100% {
+      opacity: 0.55;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+}
+
+/* ---- Thème sombre : variables locales ---- */
+.dark {
+  --color-surface: #0f1115;
+  --color-card: #171a21;
+  --color-border: #272b34;
+  --color-ink: #e8eaef;
+  --color-muted: #9aa1b2;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    background-color: var(--color-surface);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    -webkit-font-smoothing: antialiased;
+    min-height: 100dvh;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-brand-600);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+
+  /* Masquage des montants (confidentialité) */
+  .amount-masked {
+    filter: blur(7px);
+    user-select: none;
+  }
+}
+
+@layer utilities {
+  .card {
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-card);
+  }
+
+  .tabular {
+    font-variant-numeric: tabular-nums;
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Impression / export PDF des récapitulatifs */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+  }
+  .card {
+    box-shadow: none;
+    border: 1px solid #dcdfe6;
+  }
+}
